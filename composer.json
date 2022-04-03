@@ -1,0 +1,54 @@
+{
+    "name": "markocupic/sac-cabins-bundle",
+    "description": "Manage mountain club cabins in the Contao backend and display them in the frontend of your website.",
+    "keywords": [
+        "SAC",
+        "Cabins",
+        "bundle",
+        "Contao CMS",
+        "Extension"
+    ],
+    "type": "contao-bundle",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Marko Cupic",
+            "email": "m.cupic@gmx.ch",
+            "homepage": "https://github.com/markocupic/sac-cabins-bundle",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/markocupic/sac-cabins-bundle/issues",
+        "source": "https://github.com/markocupic/sac-cabins-bundle"
+    },
+    "require": {
+        "contao/core-bundle": "^4.13",
+        "markocupic/sac-event-tool-bundle": "*"
+    },
+    "require-dev": {
+        "contao/easy-coding-standard": "^3.0",
+        "contao/manager-bundle": "^4.13",
+        "contao/manager-plugin": "^2.3.1",
+        "contao/test-case": "^4.6",
+        "phpunit/phpunit": "^9.3",
+        "symfony/phpunit-bridge": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Markocupic\\SacCabinsBundle\\": "src/"
+        },
+        "classmap": [
+            "src/Resources/contao"
+        ],
+        "exclude-from-classmap": [
+            "src/Resources/contao/config",
+            "src/Resources/contao/dca",
+            "src/Resources/contao/languages",
+            "src/Resources/contao/templates"
+        ]
+    },
+    "extra": {
+        "contao-manager-plugin": "Markocupic\\SacCabinsBundle\\ContaoManager\\Plugin"
+    }
+}

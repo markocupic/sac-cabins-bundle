@@ -1,0 +1,16 @@
+services:
+
+    Markocupic\SacCabinsBundle\Controller\ContentElement\SacCabinsDetailController:
+        arguments:
+            - '@contao.framework'
+            - '%kernel.project_dir%'
+        public: true
+
+    Markocupic\SacCabinsBundle\Controller\ContentElement\SacCabinsListController:
+        arguments:
+            - '@contao.framework'
+            - '@database_connection'
+            - '%kernel.project_dir%'
+        public: true
+
+
