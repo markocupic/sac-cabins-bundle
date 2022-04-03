@@ -25,9 +25,11 @@ use Contao\Template;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function in_array;
 
 /**
- * ContentElement("cabanne_sac_list", category="sac_event_tool_content_elements", template="ce_cabanne_sac_detail")
+ * ContentElement("cabanne_sac_list", category="sac_event_tool_content_elements", template="ce_cabanne_sac_detail").
+ *
  * @ContentElement(SacCabinsListController::TYPE, category="sac_cabins_content_elements", template="ce_sac_cabins_list")
  */
 class SacCabinsListController extends AbstractContentElementController
@@ -43,7 +45,6 @@ class SacCabinsListController extends AbstractContentElementController
         $this->framework = $framework;
         $this->connection = $connection;
         $this->projectDir = $projectDir;
-
     }
 
     public function __invoke(Request $request, ContentModel $model, string $section, array $classes = null, PageModel $pageModel = null): Response
@@ -60,13 +61,13 @@ class SacCabinsListController extends AbstractContentElementController
         $controllerAdapter = $this->framework->getAdapter(Controller::class);
 
         // Add data to template
-        $row = $this->connection->fetchAssociative('SELECT * FROM tl_sac_cabins WHERE id = ?', [$model->cabanneSac]);
+        $row = $this->connection->fetchAssociative('SELECT * FROM tl_sac_cabins WHERE id = ?', [$model->sacCabin]);
 
         if ($row) {
             $skip = ['id', 'tstamp', 'singleSRC'];
 
             foreach ($row as $k => $v) {
-                if (!\in_array($k, $skip, true)) {
+                if (!in_array($k, $skip, true)) {
                     $template->$k = $v;
                 }
             }

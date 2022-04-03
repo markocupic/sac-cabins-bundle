@@ -13,4 +13,4 @@ declare(strict_types=1);
  */
 
 // Fields
-$GLOBALS['TL_LANG']['tl_content']['cabanneSac'] = ['SAC Hütte', 'Wählen Sie eine SAC Hütte aus.'];
+$GLOBALS['TL_LANG']['tl_content']['sacCabin'] = ['SAC Hütte', 'Wählen Sie eine SAC Hütte aus.'];

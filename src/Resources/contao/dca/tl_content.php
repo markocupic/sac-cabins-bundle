@@ -16,11 +16,11 @@ use Markocupic\SacCabinsBundle\Controller\ContentElement\SacCabinsDetailControll
 use Markocupic\SacCabinsBundle\Controller\ContentElement\SacCabinsListController;
 
 // Palettes
-$GLOBALS['TL_DCA']['tl_content']['palettes'][SacCabinsListController::TYPE] = '{type_legend},type,headline,cabanneSac;{image_legend},singleSRC,size,imagemargin,fullsize,overwriteMeta;{link_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID;{invisible_legend:hide},invisible,start,stop';
-$GLOBALS['TL_DCA']['tl_content']['palettes'][SacCabinsDetailController::TYPE] = '{type_legend},type,headline,cabanneSac;{image_legend},singleSRC,size,imagemargin,fullsize,overwriteMeta;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID;{invisible_legend:hide},invisible,start,stop';
+$GLOBALS['TL_DCA']['tl_content']['palettes'][SacCabinsListController::TYPE] = '{type_legend},type,headline,sacCabin;{image_legend},singleSRC,size,imagemargin,fullsize,overwriteMeta;{link_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID;{invisible_legend:hide},invisible,start,stop';
+$GLOBALS['TL_DCA']['tl_content']['palettes'][SacCabinsDetailController::TYPE] = '{type_legend},type,headline,sacCabin;{image_legend},singleSRC,size,imagemargin,fullsize,overwriteMeta;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID;{invisible_legend:hide},invisible,start,stop';
 
 // Fields
-$GLOBALS['TL_DCA']['tl_content']['fields']['cabanneSac'] = [
+$GLOBALS['TL_DCA']['tl_content']['fields']['sacCabin'] = [
     'exclude'    => true,
     'search'     => true,
     'inputType'  => 'select',

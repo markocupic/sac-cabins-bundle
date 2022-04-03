@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
  * This file is part of SAC Cabins Bundle.
- * 
+ *
  * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
@@ -19,7 +19,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    const ROOT_KEY = 'markocupic_sac_cabins';
+    public const ROOT_KEY = 'markocupic_sac_cabins';
 
     public function getConfigTreeBuilder()
     {
@@ -27,17 +27,16 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-                ->arrayNode('foo')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('bar')
-                            ->cannotBeEmpty()
-                            ->defaultValue('***')
-                        ->end()
-                    ->end()
-                ->end() // end foo
+            ->arrayNode('foo')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('bar')
+            ->cannotBeEmpty()
+            ->defaultValue('***')
             ->end()
-        ;
+            ->end()
+            ->end() // end foo
+            ->end();
 
         return $treeBuilder;
     }

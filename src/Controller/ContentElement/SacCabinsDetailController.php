@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Markocupic\SacCabinsBundle\Controller\ContentElement;
 
-use Markocupic\SacCabinsBundle\Model\SacCabinsModel;
 use Contao\ContentModel;
 use Contao\Controller;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
@@ -23,11 +22,14 @@ use Contao\CoreBundle\ServiceAnnotation\ContentElement;
 use Contao\FilesModel;
 use Contao\PageModel;
 use Contao\Template;
+use Markocupic\SacCabinsBundle\Model\SacCabinsModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function in_array;
 
 /**
- * ContentElement("cabanne_sac_detail", category="sac_event_tool_content_elements", template="ce_cabanne_sac_detail")
+ * ContentElement("cabanne_sac_detail", category="sac_event_tool_content_elements", template="ce_cabanne_sac_detail").
+ *
  * @ContentElement(SacCabinsDetailController::TYPE, category="sac_cabins_content_elements", template="ce_sac_cabins_detail")
  */
 class SacCabinsDetailController extends AbstractContentElementController
@@ -50,7 +52,7 @@ class SacCabinsDetailController extends AbstractContentElementController
         $sacCabinsModelAdapter = $this->framework->getAdapter(SacCabinsModel::class);
 
         // Add data to template
-        if (null === ($this->objSacCabins = $sacCabinsModelAdapter->findByPk($model->cabanneSac))) {
+        if (null === ($this->objSacCabins = $sacCabinsModelAdapter->findByPk($model->sacCabin))) {
             return new Response('', Response::HTTP_NO_CONTENT);
         }
 
@@ -69,7 +71,7 @@ class SacCabinsDetailController extends AbstractContentElementController
         $skip = ['id', 'tstamp'];
 
         foreach ($this->objSacCabins->row() as $k => $v) {
-            if (!\in_array($k, $skip, true)) {
+            if (!in_array($k, $skip, true)) {
                 $template->$k = $v;
             }
         }
