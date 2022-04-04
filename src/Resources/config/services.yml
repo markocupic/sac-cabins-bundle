@@ -10,6 +10,8 @@ services:
         arguments:
             - '@contao.framework'
             - '@database_connection'
+            - '@contao.image.studio'
+            - '@twig'
             - '%kernel.project_dir%'
         public: true
 
