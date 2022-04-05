@@ -48,6 +48,6 @@ class MarkocupicSacCabinsExtension extends Extension
 
         $rootKey = $this->getAlias();
 
-        $container->setParameter($rootKey.'.foo.bar', $config['foo']['bar']);
+        $container->setParameter($rootKey.'.geo_link', $config['geo_link']);
     }
 }

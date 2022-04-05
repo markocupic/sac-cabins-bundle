@@ -1,0 +1,146 @@
+{% extends '@Contao/block_searchable' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-6 col-xl-8 mb-4 mb-0-lg">
+            {% if figure %}
+                {{ figure|raw }}
+            {% endif %}
+        </div>
+
+        <div class="col-lg-6  col-xl-4">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="kontakt-tab" data-bs-toggle="tab" href="#kontakt" role="tab" aria-controls="kontakt" aria-selected="true">Kontakt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="bewartung-tab" data-bs-toggle="tab" href="#bewartung" role="tab" aria-controls="bewartung" aria-selected="false">Bewartung</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="huetteDetail">
+                <!-- Contact -->
+                <div class="tab-pane fade show active" id="kontakt" role="tabpanel" aria-labelledby="kontakt-tab">
+                    <div class="table-responsive">
+                        <table class="table">
+                            {% if cabin.hutWarden %}
+                                <tr>
+                                    <td><strong>Hüttenwart:</strong></td>
+                                    <td>{{ cabin.hutWarden|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+
+                            {% if cabin.phone %}
+                                <tr>
+                                    <td><strong>Hüttentelefon:</strong></td>
+                                    <td>{{ cabin.phone }}</td>
+                                </tr>
+                            {% endif %}
+
+                            {% if cabin.email %}
+                                <tr>
+                                    <td><strong>E-Mail:</strong></td>
+                                    <td>{{ cabin.email }}</td>
+                                </tr>
+                            {% endif %}
+
+                            {% if cabin.url %}
+                                <tr>
+                                    <td><strong>Webseite:</strong></td>
+                                    <td><a href="{{ cabin.url|raw }}" target="_blank">{{ cabin.url[:26] ~ '...' }}</a></td>
+                                </tr>
+                            {% endif %}
+
+                            {% if cabin.bookingMethod %}
+                                <tr>
+                                    <td><strong>Anfrage/Buchung:</strong></td>
+                                    <td>{{ cabin.bookingMethod|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+
+                <!-- details -->
+                <div class="tab-pane fade show" id="details" role="tabpanel" aria-labelledby="details-tab">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td><strong>Hüttenchef:</strong></td>
+                                <td>{{ cabin.huettenchef|nl2br }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kapazität:</strong></td>
+                                <td>{{ cabin.capacity|nl2br }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Höhe:</strong></td>
+                                <td>{{ cabin.altitude }} m.ü.M.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Koordinaten:</strong></td>
+                                <td>{{ cabin.coordsCH1903 }} (CH1903/LV03)<br>{{ cabin.coordsWGS84 }} (WGS84)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Bewartungszeiten -->
+                <div class="tab-pane fade show" id="bewartung" role="tabpanel" aria-labelledby="bewartung-tab">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td><strong>Bewartung:</strong></td>
+                                <td>{{ cabin.openingTime|nl2br }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <h2 class="ce_headline">Zustiegsmöglichkeiten</h2>
+        </div>
+
+        <div class="col-xl-8 mb-4 mb-0-lg">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Beschreibung</th>
+                        <th>Zustiegszeit</th>
+                        <th>Schwierigkeit</th>
+                        <th>Sommer</th>
+                        <th>Winter</th>
+                        <th>Kommentar</th>
+                    </tr>
+
+                    {% for ascent in cabin.ascents %}
+                        <tr>
+                            <td>{{ ascent.ascentDescription|nl2br }}</td>
+                            <td>{{ ascent.ascentTime|nl2br }}</td>
+                            <td>{{ ascent.ascentDifficulty|nl2br }}</td>
+                            <td>{% if 'possible' == ascent.ascentSummer %}Ja{% else %}>Nein{% endif %}</td>
+                            <td>{% if 'possible' == ascent.ascentWinter %}Ja{% else %}>Nein{% endif %}</td>
+                            <td>{{ ascent.ascentComment|nl2br }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            {% if cabin.hasCoords %}
+                <div class="embed-responsive embed-responsive-4by3">
+                    <iframe src="{{ cabin.geoLink|format(cabin.coordsCH1903X,cabin.coordsCH1903Y) }}"></iframe>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

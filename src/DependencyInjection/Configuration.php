@@ -27,15 +27,10 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-            ->arrayNode('foo')
-            ->addDefaultsIfNotSet()
-            ->children()
-            ->scalarNode('bar')
-            ->cannotBeEmpty()
-            ->defaultValue('***')
-            ->end()
-            ->end()
-            ->end() // end foo
+                ->scalarNode('geo_link')
+                ->cannotBeEmpty()
+                ->defaultValue('//map.geo.admin.ch/embed.html?lang=de&topic=ech&bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.bav.haltestellen-oev,ch.swisstopo.swisstlm3d-wanderwege&E=###.00&N=###.00&zoom=7&crosshair=marker')
+                ->end()
             ->end();
 
         return $treeBuilder;
