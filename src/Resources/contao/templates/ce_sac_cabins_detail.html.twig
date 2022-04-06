@@ -13,52 +13,51 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="kontakt-tab" data-bs-toggle="tab" href="#kontakt" role="tab" aria-controls="kontakt" aria-selected="true">Kontakt</a>
+                    <a class="nav-link active" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">{{ 'SAC_CAB.contact'|trans({}, 'contao_default') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
+                    <a class="nav-link" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">{{ 'SAC_CAB.details'|trans({}, 'contao_default') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="bewartung-tab" data-bs-toggle="tab" href="#bewartung" role="tab" aria-controls="bewartung" aria-selected="false">Bewartung</a>
+                    <a class="nav-link" id="wardening-tab" data-bs-toggle="tab" href="#wardening" role="tab" aria-controls="wardening" aria-selected="false">{{ 'SAC_CAB.wardening'|trans({}, 'contao_default') }}</a>
                 </li>
             </ul>
 
-            <div class="tab-content" id="huetteDetail">
-                <!-- Contact -->
-                <div class="tab-pane fade show active" id="kontakt" role="tabpanel" aria-labelledby="kontakt-tab">
+            <div class="tab-content" id="cabinDetailTabContent">
+                <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <div class="table-responsive">
                         <table class="table">
                             {% if cabin.hutWarden %}
                                 <tr>
-                                    <td><strong>Hüttenwart:</strong></td>
+                                    <td><strong>{{ 'SAC_CAB.hutWarden'|trans({}, 'contao_default') }}:</strong></td>
                                     <td>{{ cabin.hutWarden|nl2br }}</td>
                                 </tr>
                             {% endif %}
 
                             {% if cabin.phone %}
                                 <tr>
-                                    <td><strong>Hüttentelefon:</strong></td>
+                                    <td><strong>{{ 'SAC_CAB.cabinPhone'|trans({}, 'contao_default') }}:</strong></td>
                                     <td>{{ cabin.phone }}</td>
                                 </tr>
                             {% endif %}
 
                             {% if cabin.email %}
                                 <tr>
-                                    <td><strong>E-Mail:</strong></td>
-                                    <td>{{ cabin.email }}</td>
+                                    <td><strong>{{ 'SAC_CAB.email'|trans({}, 'contao_default') }}:</strong></td>
+                                    <td>{{ cabin.email|raw }}</td>
                                 </tr>
                             {% endif %}
 
                             {% if cabin.url %}
                                 <tr>
-                                    <td><strong>Webseite:</strong></td>
+                                    <td><strong>{{ 'SAC_CAB.website'|trans({}, 'contao_default') }}:</strong></td>
                                     <td><a href="{{ cabin.url|raw }}" target="_blank">{{ cabin.url[:26] ~ '...' }}</a></td>
                                 </tr>
                             {% endif %}
 
                             {% if cabin.bookingMethod %}
                                 <tr>
-                                    <td><strong>Anfrage/Buchung:</strong></td>
+                                    <td><strong>{{ 'SAC_CAB.inquiryAndBooking'|trans({}, 'contao_default') }}:</strong></td>
                                     <td>{{ cabin.bookingMethod|nl2br }}</td>
                                 </tr>
                             {% endif %}
@@ -66,36 +65,34 @@
                     </div>
                 </div>
 
-                <!-- details -->
                 <div class="tab-pane fade show" id="details" role="tabpanel" aria-labelledby="details-tab">
                     <div class="table-responsive">
                         <table class="table">
                             <tr>
-                                <td><strong>Hüttenchef:</strong></td>
+                                <td><strong>{{ 'SAC_CAB.hutMaster'|trans({}, 'contao_default') }}:</strong></td>
                                 <td>{{ cabin.huettenchef|nl2br }}</td>
                             </tr>
                             <tr>
-                                <td><strong>Kapazität:</strong></td>
+                                <td><strong>{{ 'SAC_CAB.capacity'|trans({}, 'contao_default') }}:</strong></td>
                                 <td>{{ cabin.capacity|nl2br }}</td>
                             </tr>
                             <tr>
-                                <td><strong>Höhe:</strong></td>
+                                <td><strong>{{ 'SAC_CAB.altitude'|trans({}, 'contao_default') }}:</strong></td>
                                 <td>{{ cabin.altitude }} m.ü.M.</td>
                             </tr>
                             <tr>
-                                <td><strong>Koordinaten:</strong></td>
+                                <td><strong>{{ 'SAC_CAB.coordinates'|trans({}, 'contao_default') }}:</strong></td>
                                 <td>{{ cabin.coordsCH1903 }} (CH1903/LV03)<br>{{ cabin.coordsWGS84 }} (WGS84)</td>
                             </tr>
                         </table>
                     </div>
                 </div>
 
-                <!-- Bewartungszeiten -->
-                <div class="tab-pane fade show" id="bewartung" role="tabpanel" aria-labelledby="bewartung-tab">
+                <div class="tab-pane fade show" id="wardening" role="tabpanel" aria-labelledby="wardening-tab">
                     <div class="table-responsive">
                         <table class="table">
                             <tr>
-                                <td><strong>Bewartung:</strong></td>
+                                <td><strong>{{ 'SAC_CAB.wardening'|trans({}, 'contao_default') }}:</strong></td>
                                 <td>{{ cabin.openingTime|nl2br }}</td>
                             </tr>
                         </table>
@@ -105,19 +102,19 @@
         </div>
 
         <div class="col-12">
-            <h2 class="ce_headline">Zustiegsmöglichkeiten</h2>
+            <h2 class="ce_headline">{{ 'SAC_CAB.ascentVariants'|trans({}, 'contao_default') }}</h2>
         </div>
 
         <div class="col-xl-8 mb-4 mb-0-lg">
             <div class="table-responsive">
                 <table class="table">
                     <tr>
-                        <th>Beschreibung</th>
-                        <th>Zustiegszeit</th>
-                        <th>Schwierigkeit</th>
-                        <th>Sommer</th>
-                        <th>Winter</th>
-                        <th>Kommentar</th>
+                        <th>{{ 'SAC_CAB.description'|trans({}, 'contao_default') }}</th>
+                        <th>{{ 'SAC_CAB.ascentTime'|trans({}, 'contao_default') }}</th>
+                        <th>{{ 'SAC_CAB.techDifficulty'|trans({}, 'contao_default') }}</th>
+                        <th>{{ 'SAC_CAB.summer'|trans({}, 'contao_default') }}</th>
+                        <th>{{ 'SAC_CAB.winter'|trans({}, 'contao_default') }}</th>
+                        <th>{{ 'SAC_CAB.comment'|trans({}, 'contao_default') }}</th>
                     </tr>
 
                     {% for ascent in cabin.ascents %}
@@ -125,8 +122,8 @@
                             <td>{{ ascent.ascentDescription|nl2br }}</td>
                             <td>{{ ascent.ascentTime|nl2br }}</td>
                             <td>{{ ascent.ascentDifficulty|nl2br }}</td>
-                            <td>{% if 'possible' == ascent.ascentSummer %}Ja{% else %}>Nein{% endif %}</td>
-                            <td>{% if 'possible' == ascent.ascentWinter %}Ja{% else %}>Nein{% endif %}</td>
+                            <td>{% if 'possible' == ascent.ascentSummer %}{{ 'SAC_CAB.yes'|trans({}, 'contao_default') }}{% else %}{{ 'SAC_CAB.no'|trans({}, 'contao_default') }}{% endif %}</td>
+                            <td>{% if 'possible' == ascent.ascentWinter %}{{ 'SAC_CAB.yes'|trans({}, 'contao_default') }}{% else %}{{ 'SAC_CAB.no'|trans({}, 'contao_default') }}{% endif %}</td>
                             <td>{{ ascent.ascentComment|nl2br }}</td>
                         </tr>
                     {% endfor %}

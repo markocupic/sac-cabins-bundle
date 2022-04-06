@@ -28,10 +28,12 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('geo_link')
-                ->cannotBeEmpty()
-                ->defaultValue('//map.geo.admin.ch/embed.html?lang=de&topic=ech&bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.bav.haltestellen-oev,ch.swisstopo.swisstlm3d-wanderwege&E=###.00&N=###.00&zoom=7&crosshair=marker')
+                    ->cannotBeEmpty()
+                    // The coord "%s" placeholders have to be escaped by an additional percent sign => &&s
+                    ->defaultValue('//map.geo.admin.ch/embed.html?lang=de&topic=ech&bgLayer=ch.swisstopo.pixelkarte-farbe&layers=ch.bav.haltestellen-oev,ch.swisstopo.swisstlm3d-wanderwege&E=%%s.00&N=%%s.00&zoom=7&crosshair=marker')
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         return $treeBuilder;
     }

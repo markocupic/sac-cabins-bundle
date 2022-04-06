@@ -22,13 +22,10 @@ use Markocupic\SacCabinsBundle\MarkocupicSacCabinsBundle;
 use Markocupic\SacEventToolBundle\MarkocupicSacEventToolBundle;
 
 /**
- * Class Plugin
+ * Class Plugin.
  */
 class Plugin implements BundlePluginInterface
 {
-    /**
-     * @return array
-     */
     public function getBundles(ParserInterface $parser): array
     {
         return [
@@ -37,6 +34,6 @@ class Plugin implements BundlePluginInterface
                     ContaoCoreBundle::class,
                     MarkocupicSacEventToolBundle::class,
                 ]),
-            ];
+        ];
     }
 }

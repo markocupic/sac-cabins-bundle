@@ -28,6 +28,9 @@ use Markocupic\SacCabinsBundle\Model\SacCabinsModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * ContentElement("cabanne_sac_list", category="sac_event_tool_content_elements", template="ce_cabanne_sac_detail").
@@ -68,13 +71,9 @@ class SacCabinsListController extends AbstractContentElementController
     }
 
     /**
-     * @param Template $template
-     * @param ContentModel $model
-     * @param Request $request
-     * @return Response|null
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {
@@ -86,10 +85,10 @@ class SacCabinsListController extends AbstractContentElementController
             ->setSize($model->size)
             ->setMetadata(
                 new Metadata(
-                [
-                    Metadata::VALUE_ALT => StringUtil::specialchars($this->objSacCabin->name),
-                ]
-            )
+                    [
+                        Metadata::VALUE_ALT => StringUtil::specialchars($this->objSacCabin->name),
+                    ]
+                )
             )
             ->setLinkHref($model->jumpTo)
             ->buildIfResourceExists()

@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Markocupic\SacCabinsBundle\DependencyInjection;
 
-use Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -31,7 +30,7 @@ class MarkocupicSacCabinsExtension extends Extension
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container): void
     {

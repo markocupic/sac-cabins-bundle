@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @link https://github.com/markocupic/sac-cabins-bundle
  */
 
-/**
+/*
  * Backend modules
  */
 $GLOBALS['TL_LANG']['MOD']['sac_cabins_tool'] = ['Hütten-Tool'];

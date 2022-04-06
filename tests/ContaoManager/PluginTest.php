@@ -2,7 +2,7 @@
 
 /*
  * This file is part of SAC Cabins Bundle.
- * 
+ *
  * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
@@ -19,6 +19,7 @@ use Contao\ManagerPlugin\Bundle\Parser\DelegatingParser;
 use Contao\TestCase\ContaoTestCase;
 use Markocupic\SacCabinsBundle\ContaoManager\Plugin;
 use Markocupic\SacCabinsBundle\MarkocupicSacCabinsBundle;
+use Markocupic\SacEventToolBundle\MarkocupicSacEventToolBundle;
 
 /**
  * Class PluginTest
@@ -48,7 +49,7 @@ class PluginTest extends ContaoTestCase
         $this->assertCount(1, $bundles);
         $this->assertInstanceOf(BundleConfig::class, $bundles[0]);
         $this->assertSame(MarkocupicSacCabinsBundle::class, $bundles[0]->getName());
-        $this->assertSame([ContaoCoreBundle::class], $bundles[0]->getLoadAfter());
+        $this->assertSame([ContaoCoreBundle::class, MarkocupicSacEventToolBundle::class], $bundles[0]->getLoadAfter());
     }
 
 }

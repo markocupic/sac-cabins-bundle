@@ -3,16 +3,17 @@
 {% block content %}
 
     <div class="card">
-        {% if figure %}
-            {{ figure|raw }}
-        {% endif %}
+        <div class="image-zoom-in">
+            {% if figure %}
+                {{ figure|raw }}
+            {% endif %}
+        </div>
 
         <div class="card-body">
-            <p class="card-date m-0"><small></small></p>
-            <a href="{{ jumpTo }}" title="weiterlesen">
+            <a href="{{ jumpTo }}" title="{{ 'SAC_CAB.readMore'|trans({}, 'contao_default') }}">
                 <h6 class="card-title mt-0">{{ cabin.name }}</h6>
             </a>
-            <p><small>{{ cabin.altitude }} m.ü.M.</small></p>
+            <p><small>{{ cabin.altitude }} {{ 'SAC_CAB.metersAtSeaLevelShortcut'|trans({}, 'contao_default') }}</small></p>
         </div>
     </div>
 
