@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 // Legends
 $GLOBALS['TL_LANG']['tl_sac_cabins']['contact_legend'] = 'Kontakt Einstellungen';
-$GLOBALS['TL_LANG']['tl_sac_cabins']['capacity_legend'] = 'Kontakt Einstellungen';
+$GLOBALS['TL_LANG']['tl_sac_cabins']['capacity_legend'] = 'Kapazitäten (Schlafplätze/SChutzraum)';
 $GLOBALS['TL_LANG']['tl_sac_cabins']['image_legend'] = 'Bild Einstellungen';
 $GLOBALS['TL_LANG']['tl_sac_cabins']['details_legend'] = 'Detail Einstellungen';
 $GLOBALS['TL_LANG']['tl_sac_cabins']['ascent_legend'] = 'Zustieg Einstellungen';

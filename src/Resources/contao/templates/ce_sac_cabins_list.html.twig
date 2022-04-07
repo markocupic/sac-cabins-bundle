@@ -18,10 +18,10 @@
             <a href="{{ jumpTo }}" class="text-decoration-none" title="{{ 'SAC_CAB.readMore'|trans({}, 'contao_default') }}">
                 <h6 class="card-title mt-0">{{ cabin.name }}</h6>
             </a>
-            <p><small>{{ cabin.altitude }} {{ 'SAC_CAB.metersAtSeaLevelShortcut'|trans({}, 'contao_default') }}</small></p>
-            <p><small>{{ 'SAC_CAB.sleepingPlaces'|trans({}, 'contao_default') }}: {{ cabin.capacity }}</small></p>
+            <p><small><strong>{{ cabin.altitude }} {{ 'SAC_CAB.metersAtSeaLevelShortcut'|trans({}, 'contao_default') }}</strong></small></p>
+            <p class="mb-0 lh-1 text-muted"><small>{{ 'SAC_CAB.sleepingPlaces'|trans({}, 'contao_default') }}: {{ cabin.capacity }}</small></p>
             {% if cabin.capacityShelterRoom %}
-                <p><small>{{ 'SAC_CAB.shelterRoom'|trans({}, 'contao_default') }}: {{ cabin.capacityShelterRoom }}</small></p>
+                <p class="mt-0 mb-2 lh-1 text-muted"><small>{{ 'SAC_CAB.shelterRoom'|trans({}, 'contao_default') }}: {{ cabin.capacityShelterRoom }}</small></p>
             {% endif %}
         </div>
     </div>

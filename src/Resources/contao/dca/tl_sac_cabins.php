@@ -65,7 +65,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
         ],
     ],
     'palettes' => [
-        'default' => '{contact_legend},name,owner,canton,altitude,hutWarden,phone,email,url,bookingMethod;{capacity_legend},capacity,shelterRoomCapacity;{image_legend},singleSRC;{details_legend},huettenchef,coordsCH1903,coordsWGS84,openingTime;{ascent_legend},ascent',
+        'default' => '{contact_legend},name,owner,canton,altitude,hutWarden,phone,email,url,bookingMethod;{capacity_legend},capacity,capacityShelterRoom;{image_legend},singleSRC;{details_legend},huettenchef,coordsCH1903,coordsWGS84,openingTime;{ascent_legend},ascent',
     ],
 
     'fields' => [

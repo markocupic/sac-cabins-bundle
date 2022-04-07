@@ -7,6 +7,8 @@
 
 Dieses Bundle für das Contao CMS enthält die Back- und Frontend Erweiterungen, um SAC Hütten auf der Sektionswebseite zu administrieren und zu veröffentlichen.
 
+![Listenansicht](docs/images/cabin-list.png)
+
 ## Konfiguration
 ```yaml
 # config/config.yml: override default swisstopo marker link in your config/config.yml

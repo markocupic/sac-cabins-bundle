@@ -98,10 +98,14 @@ class SacCabinsDetailController extends AbstractContentElementController
         // coordsCH1903
         if (!empty($this->objSacCabin->coordsCH1903)) {
             if (false !== strpos($this->objSacCabin->coordsCH1903, '/')) {
-                $row['hasCoords'] = true;
                 $arrCoord = explode('/', $this->objSacCabin->coordsCH1903);
-                $row['coordsCH1903X'] = trim($arrCoord[0]);
-                $row['coordsCH1903Y'] = trim($arrCoord[1]);
+
+                if (\is_array($arrCoord) && 2 === \count($arrCoord)) {
+                    $row['hasCoords'] = true;
+                    $arrCoord =
+                        $row['coordsCH1903X'] = trim($arrCoord[0]);
+                    $row['coordsCH1903Y'] = trim($arrCoord[1]);
+                }
             }
         }
 
