@@ -65,17 +65,17 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
         ],
     ],
     'palettes' => [
-        'default' => '{contact_legend},name,canton,altitude,hutWarden,phone,email,url,bookingMethod;{image_legend},singleSRC;{details_legend},huettenchef,capacity,coordsCH1903,coordsWGS84,openingTime;{ascent_legend},ascent',
+        'default' => '{contact_legend},name,owner,canton,altitude,hutWarden,phone,email,url,bookingMethod;{capacity_legend},capacity,shelterRoomCapacity;{image_legend},singleSRC;{details_legend},huettenchef,coordsCH1903,coordsWGS84,openingTime;{ascent_legend},ascent',
     ],
 
     'fields' => [
-        'id'            => [
+        'id'                  => [
             'sql' => 'int(10) unsigned NOT NULL auto_increment',
         ],
-        'tstamp'        => [
+        'tstamp'              => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
         ],
-        'name'          => [
+        'name'                => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'canton'        => [
+        'owner'               => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -91,7 +91,15 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'altitude'      => [
+        'canton'              => [
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr'],
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ],
+        'altitude'            => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -99,7 +107,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['rgxp' => 'natural', 'mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'hutWarden'     => [
+        'hutWarden'           => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -107,7 +115,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['rgxp' => '', 'mandatory' => true, 'maxlength' => 512, 'tl_class' => 'clr'],
             'sql'       => "varchar(512) NOT NULL default ''",
         ],
-        'phone'         => [
+        'phone'               => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -115,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['rgxp' => 'phone', 'mandatory' => false, 'maxlength' => 255, 'tl_class' => 'clr'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'email'         => [
+        'email'               => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -123,7 +131,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['rgxp' => 'email', 'mandatory' => false, 'maxlength' => 255, 'tl_class' => 'clr'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'bookingMethod' => [
+        'bookingMethod'       => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -131,7 +139,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['mandatory' => false, 'maxlength' => 512, 'tl_class' => 'clr'],
             'sql'       => "varchar(512) NOT NULL default ''",
         ],
-        'url'           => [
+        'url'                 => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -139,13 +147,13 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['rgxp' => 'url', 'mandatory' => false, 'maxlength' => 255, 'tl_class' => 'clr'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'singleSRC'     => [
+        'singleSRC'           => [
             'exclude'   => true,
             'inputType' => 'fileTree',
             'eval'      => ['fieldType' => 'radio', 'filesOnly' => true, 'extensions' => Config::get('validImageTypes'), 'mandatory' => true],
             'sql'       => 'binary(16) NULL',
         ],
-        'huettenchef'   => [
+        'huettenchef'         => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -153,15 +161,24 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['mandatory' => true, 'maxlength' => 512, 'tl_class' => 'clr'],
             'sql'       => "varchar(512) NOT NULL default ''",
         ],
-        'capacity'      => [
+        'capacity'            => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
-            'inputType' => 'textarea',
-            'eval'      => ['mandatory' => true, 'maxlength' => 512, 'tl_class' => 'clr'],
-            'sql'       => "varchar(512) NOT NULL default ''",
+            'options'   => range(0, 200),
+            'inputType' => 'select',
+            'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'coordsCH1903'  => [
+        'capacityShelterRoom' => [
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'options'   => range(0, 200),
+            'inputType' => 'select',
+            'eval'      => ['includeBlankOption' => true, 'mandatory' => false, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ],
+        'coordsCH1903'        => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -169,7 +186,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'coordsWGS84'   => [
+        'coordsWGS84'         => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -177,7 +194,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'openingTime'   => [
+        'openingTime'         => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -185,7 +202,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'eval'      => ['mandatory' => true, 'maxlength' => 512, 'tl_class' => 'clr'],
             'sql'       => "varchar(512) NOT NULL default ''",
         ],
-        'ascent'        => [
+        'ascent'              => [
             'label'     => &$GLOBALS['TL_LANG']['tl_sac_cabins']['ascent'],
             'exclude'   => true,
             'inputType' => 'multiColumnWizard',

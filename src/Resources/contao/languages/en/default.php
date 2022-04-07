@@ -20,6 +20,9 @@ $GLOBALS['TL_LANG']['CTE']['sac_cabins_detail'] = ['SAC Hütten Detailelement'];
 // Content element listing
 $GLOBALS['TL_LANG']['SAC_CAB']['readMore'] = 'mehr erfahren';
 $GLOBALS['TL_LANG']['SAC_CAB']['metersAtSeaLevelShortcut'] = 'm.ü.M.';
+$GLOBALS['TL_LANG']['SAC_CAB']['sleepingPlaces'] = 'Schlafplätze';
+$GLOBALS['TL_LANG']['SAC_CAB']['shelterRoom'] = 'Schutzraum';
+
 
 // Content element detail
 $GLOBALS['TL_LANG']['SAC_CAB']['contact'] = 'Kontakt';
