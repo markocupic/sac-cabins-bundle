@@ -43,22 +43,18 @@ class SacCabinsListController extends AbstractContentElementController
     public const TYPE = 'sac_cabins_list';
 
     private ContaoFramework $framework;
-    private Connection $connection;
     private Studio $studio;
     private Environment $twig;
-    private string $projectDir;
     private ?SacCabinsModel $objSacCabin;
 
     // Adapters
     private Adapter $sacCabins;
 
-    public function __construct(ContaoFramework $framework, Connection $connection, Studio $studio, Environment $twig, string $projectDir)
+    public function __construct(ContaoFramework $framework, Studio $studio, Environment $twig)
     {
         $this->framework = $framework;
-        $this->connection = $connection;
         $this->studio = $studio;
         $this->twig = $twig;
-        $this->projectDir = $projectDir;
 
         // Adapters
         $this->sacCabins = $this->framework->getAdapter(SacCabinsModel::class);
