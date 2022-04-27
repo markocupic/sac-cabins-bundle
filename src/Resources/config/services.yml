@@ -6,17 +6,14 @@ services:
             - '@contao.image.studio'
             - '@contao.insert_tag.parser'
             - '@twig'
-            - '%kernel.project_dir%'
             - '%markocupic_sac_cabins.geo_link%'
         public: true
 
     Markocupic\SacCabinsBundle\Controller\ContentElement\SacCabinsListController:
         arguments:
             - '@contao.framework'
-            - '@database_connection'
             - '@contao.image.studio'
             - '@twig'
-            - '%kernel.project_dir%'
         public: true
 
 

@@ -17,6 +17,7 @@ namespace Markocupic\SacCabinsBundle\Controller\ContentElement;
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
 use Contao\CoreBundle\File\Metadata;
+use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\CoreBundle\InsertTag\InsertTagParser;
@@ -45,27 +46,30 @@ class SacCabinsDetailController extends AbstractContentElementController
     private Studio $studio;
     private InsertTagParser $insertTagParser;
     private Environment $twig;
-    private string $projectDir;
     private string $geoLink;
     private ?SacCabinsModel $objSacCabin;
 
-    public function __construct(ContaoFramework $framework, Studio $studio, InsertTagParser $insertTagParser, Environment $twig, string $projectDir, string $geoLink)
+    // Adapters
+    private Adapter $sacCabins;
+    private Adapter $stringUtil;
+
+    public function __construct(ContaoFramework $framework, Studio $studio, InsertTagParser $insertTagParser, Environment $twig, string $geoLink)
     {
         $this->framework = $framework;
         $this->studio = $studio;
         $this->insertTagParser = $insertTagParser;
         $this->twig = $twig;
-        $this->projectDir = $projectDir;
         $this->geoLink = $geoLink;
+
+        // Adapters
+        $this->sacCabins = $this->framework->getAdapter(SacCabinsModel::class);
+        $this->stringUtil = $this->framework->getAdapter(StringUtil::class);
     }
 
     public function __invoke(Request $request, ContentModel $model, string $section, array $classes = null, PageModel $pageModel = null): Response
     {
-        /** @var SacCabinsModel $sacCabinsModelAdapter */
-        $sacCabinsModelAdapter = $this->framework->getAdapter(SacCabinsModel::class);
-
         // Add data to template
-        if (null === ($this->objSacCabin = $sacCabinsModelAdapter->findByPk($model->sacCabin))) {
+        if (null === ($this->objSacCabin = $this->sacCabins->findByPk($model->sacCabin))) {
             return new Response('', Response::HTTP_NO_CONTENT);
         }
 
@@ -79,9 +83,6 @@ class SacCabinsDetailController extends AbstractContentElementController
      */
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {
-        /** @var StringUtil $stringUtilAdapter */
-        $stringUtilAdapter = $this->framework->getAdapter(StringUtil::class);
-
         $row = $this->objSacCabin->row();
 
         // geo link
@@ -93,7 +94,7 @@ class SacCabinsDetailController extends AbstractContentElementController
         }
 
         // ascent variants
-        $row['ascents'] = $stringUtilAdapter->deserialize($this->objSacCabin->ascent, true);
+        $row['ascents'] = $this->stringUtil->deserialize($this->objSacCabin->ascent, true);
 
         // coordsCH1903
         if (!empty($this->objSacCabin->coordsCH1903)) {
@@ -102,8 +103,7 @@ class SacCabinsDetailController extends AbstractContentElementController
 
                 if (\is_array($arrCoord) && 2 === \count($arrCoord)) {
                     $row['hasCoords'] = true;
-                    $arrCoord =
-                        $row['coordsCH1903X'] = trim($arrCoord[0]);
+                    $row['coordsCH1903X'] = trim($arrCoord[0]);
                     $row['coordsCH1903Y'] = trim($arrCoord[1]);
                 }
             }
@@ -116,7 +116,7 @@ class SacCabinsDetailController extends AbstractContentElementController
             ->setMetadata(
                 new Metadata(
                     [
-                        Metadata::VALUE_ALT => $stringUtilAdapter->specialchars($this->objSacCabin->name),
+                        Metadata::VALUE_ALT => $this->stringUtil->specialchars($this->objSacCabin->name),
                     ]
                 )
             )

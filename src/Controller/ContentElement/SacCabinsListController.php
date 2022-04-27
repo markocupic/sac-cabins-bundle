@@ -17,6 +17,7 @@ namespace Markocupic\SacCabinsBundle\Controller\ContentElement;
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
 use Contao\CoreBundle\File\Metadata;
+use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\CoreBundle\ServiceAnnotation\ContentElement;
@@ -48,6 +49,9 @@ class SacCabinsListController extends AbstractContentElementController
     private string $projectDir;
     private ?SacCabinsModel $objSacCabin;
 
+    // Adapters
+    private Adapter $sacCabins;
+
     public function __construct(ContaoFramework $framework, Connection $connection, Studio $studio, Environment $twig, string $projectDir)
     {
         $this->framework = $framework;
@@ -55,15 +59,15 @@ class SacCabinsListController extends AbstractContentElementController
         $this->studio = $studio;
         $this->twig = $twig;
         $this->projectDir = $projectDir;
+
+        // Adapters
+        $this->sacCabins = $this->framework->getAdapter(SacCabinsModel::class);
     }
 
     public function __invoke(Request $request, ContentModel $model, string $section, array $classes = null, PageModel $pageModel = null): Response
     {
-        /** @var SacCabinsModel $sacCabinsModelAdapter */
-        $sacCabinsModelAdapter = $this->framework->getAdapter(SacCabinsModel::class);
-
         // Add data to template
-        if (null === ($this->objSacCabin = $sacCabinsModelAdapter->findByPk($model->sacCabin))) {
+        if (null === ($this->objSacCabin = $this->sacCabins->findByPk($model->sacCabin))) {
             return new Response('', Response::HTTP_NO_CONTENT);
         }
 
