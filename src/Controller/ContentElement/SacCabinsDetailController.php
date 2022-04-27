@@ -102,8 +102,7 @@ class SacCabinsDetailController extends AbstractContentElementController
 
                 if (\is_array($arrCoord) && 2 === \count($arrCoord)) {
                     $row['hasCoords'] = true;
-                    $arrCoord =
-                        $row['coordsCH1903X'] = trim($arrCoord[0]);
+                    $row['coordsCH1903X'] = trim($arrCoord[0]);
                     $row['coordsCH1903Y'] = trim($arrCoord[1]);
                 }
             }
