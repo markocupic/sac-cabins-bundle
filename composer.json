@@ -23,6 +23,7 @@
     "source": "https://github.com/markocupic/sac-cabins-bundle"
   },
   "require": {
+    "php": "^8.0",
     "contao/core-bundle": "^4.13",
     "markocupic/sac-event-tool-bundle": "*"
   },
