@@ -24,7 +24,6 @@ use Contao\CoreBundle\ServiceAnnotation\ContentElement;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\Template;
-use Doctrine\DBAL\Connection;
 use Markocupic\SacCabinsBundle\Model\SacCabinsModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +44,7 @@ class SacCabinsListController extends AbstractContentElementController
     private ContaoFramework $framework;
     private Studio $studio;
     private Environment $twig;
-    private ?SacCabinsModel $objSacCabin;
+    private SacCabinsModel|null $objSacCabin;
 
     // Adapters
     private Adapter $sacCabins;
@@ -75,7 +74,7 @@ class SacCabinsListController extends AbstractContentElementController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ContentModel $model, Request $request): Response|null
     {
         // Add data to template
         $template->cabin = $this->objSacCabin->row();

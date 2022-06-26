@@ -47,7 +47,7 @@ class SacCabinsDetailController extends AbstractContentElementController
     private InsertTagParser $insertTagParser;
     private Environment $twig;
     private string $geoLink;
-    private ?SacCabinsModel $objSacCabin;
+    private SacCabinsModel|null $objSacCabin;
 
     // Adapters
     private Adapter $sacCabins;
@@ -81,7 +81,7 @@ class SacCabinsDetailController extends AbstractContentElementController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ContentModel $model, Request $request): Response|null
     {
         $row = $this->objSacCabin->row();
 
