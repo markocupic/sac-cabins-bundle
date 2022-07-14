@@ -133,7 +133,7 @@
 
         <div class="col-xl-4">
             {% if cabin.hasCoords %}
-                <div class="embed-responsive embed-responsive-4by3">
+                <div class="swiss-topo-location-map">
                     <iframe src="{{ cabin.geoLink|format(cabin.coordsCH1903X,cabin.coordsCH1903Y) }}" width="100%" height="100%" allow="geolocation"></iframe>
                 </div>
             {% endif %}
