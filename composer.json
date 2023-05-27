@@ -27,6 +27,9 @@
         "contao/core-bundle": "^4.13 || 5.1",
         "markocupic/sac-event-tool-bundle": "*"
     },
+    "require-dev": {
+        "contao/manager-plugin": "^2.12"
+    },
     "autoload": {
         "psr-4": {
             "Markocupic\\SacCabinsBundle\\": "src/"
