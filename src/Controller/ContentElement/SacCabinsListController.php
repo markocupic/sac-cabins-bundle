@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -16,11 +16,11 @@ namespace Markocupic\SacCabinsBundle\Controller\ContentElement;
 
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
 use Contao\CoreBundle\File\Metadata;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\Studio\Studio;
-use Contao\CoreBundle\ServiceAnnotation\ContentElement;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\Template;
@@ -32,37 +32,26 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-/**
- * ContentElement("cabanne_sac_list", category="sac_event_tool_content_elements", template="ce_cabanne_sac_detail").
- *
- * @ContentElement(SacCabinsListController::TYPE, category="sac_cabins_content_elements", template="ce_sac_cabins_list")
- */
+#[AsContentElement(SacCabinsListController::TYPE, category:'sac_cabins_content_elements', template:'ce_sac_cabins_list')]
 class SacCabinsListController extends AbstractContentElementController
 {
     public const TYPE = 'sac_cabins_list';
 
-    private ContaoFramework $framework;
-    private Studio $studio;
-    private Environment $twig;
-    private SacCabinsModel|null $objSacCabin;
+    private SacCabinsModel|null $objSacCabin = null;
+    private Adapter $sacCabinsAdapter;
 
-    // Adapters
-    private Adapter $sacCabins;
-
-    public function __construct(ContaoFramework $framework, Studio $studio, Environment $twig)
-    {
-        $this->framework = $framework;
-        $this->studio = $studio;
-        $this->twig = $twig;
-
-        // Adapters
-        $this->sacCabins = $this->framework->getAdapter(SacCabinsModel::class);
+    public function __construct(
+        private readonly ContaoFramework $framework,
+        private readonly Studio $studio,
+        private readonly Environment $twig,
+    ) {
+        $this->sacCabinsAdapter = $this->framework->getAdapter(SacCabinsModel::class);
     }
 
     public function __invoke(Request $request, ContentModel $model, string $section, array $classes = null, PageModel $pageModel = null): Response
     {
         // Add data to template
-        if (null === ($this->objSacCabin = $this->sacCabins->findByPk($model->sacCabin))) {
+        if (null === ($this->objSacCabin = $this->sacCabinsAdapter->findByPk($model->sacCabin))) {
             return new Response('', Response::HTTP_NO_CONTENT);
         }
 
@@ -74,7 +63,7 @@ class SacCabinsListController extends AbstractContentElementController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    protected function getResponse(Template $template, ContentModel $model, Request $request): Response|null
+    protected function getResponse(Template $template, ContentModel $model, Request $request): Response
     {
         // Add data to template
         $template->cabin = $this->objSacCabin->row();

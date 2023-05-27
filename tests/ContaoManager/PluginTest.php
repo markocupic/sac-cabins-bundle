@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/sac-cabins-bundle
  */
-declare(strict_types=1);
 
 namespace Markocupic\SacCabinsBundle\Tests\ContaoManager;
 
@@ -21,24 +22,13 @@ use Markocupic\SacCabinsBundle\ContaoManager\Plugin;
 use Markocupic\SacCabinsBundle\MarkocupicSacCabinsBundle;
 use Markocupic\SacEventToolBundle\MarkocupicSacEventToolBundle;
 
-/**
- * Class PluginTest
- *
- * @package Markocupic\SacCabinsBundle\Tests\ContaoManager
- */
 class PluginTest extends ContaoTestCase
 {
-    /**
-     * Test Contao manager plugin class instantiation
-     */
     public function testInstantiation(): void
     {
         $this->assertInstanceOf(Plugin::class, new Plugin());
     }
 
-    /**
-     * Test returns the bundles
-     */
     public function testGetBundles(): void
     {
         $plugin = new Plugin();
@@ -51,5 +41,4 @@ class PluginTest extends ContaoTestCase
         $this->assertSame(MarkocupicSacCabinsBundle::class, $bundles[0]->getName());
         $this->assertSame([ContaoCoreBundle::class, MarkocupicSacEventToolBundle::class], $bundles[0]->getLoadAfter());
     }
-
 }

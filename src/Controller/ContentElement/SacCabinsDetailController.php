@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -16,12 +16,12 @@ namespace Markocupic\SacCabinsBundle\Controller\ContentElement;
 
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
 use Contao\CoreBundle\File\Metadata;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\CoreBundle\InsertTag\InsertTagParser;
-use Contao\CoreBundle\ServiceAnnotation\ContentElement;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\Template;
@@ -33,43 +33,30 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-/**
- * ContentElement("cabanne_sac_detail", category="sac_event_tool_content_elements", template="ce_cabanne_sac_detail").
- *
- * @ContentElement(SacCabinsDetailController::TYPE, category="sac_cabins_content_elements", template="ce_sac_cabins_detail")
- */
+#[AsContentElement(SacCabinsDetailController::TYPE, category:'sac_cabins_content_elements', template:'ce_cabanne_sac_detail')]
 class SacCabinsDetailController extends AbstractContentElementController
 {
     public const TYPE = 'sac_cabins_detail';
 
-    private ContaoFramework $framework;
-    private Studio $studio;
-    private InsertTagParser $insertTagParser;
-    private Environment $twig;
-    private string $geoLink;
-    private SacCabinsModel|null $objSacCabin;
+    private SacCabinsModel|null $objSacCabin = null;
+    private Adapter $sacCabinsAdapter;
+    private Adapter $stringUtilAdapter;
 
-    // Adapters
-    private Adapter $sacCabins;
-    private Adapter $stringUtil;
-
-    public function __construct(ContaoFramework $framework, Studio $studio, InsertTagParser $insertTagParser, Environment $twig, string $geoLink)
-    {
-        $this->framework = $framework;
-        $this->studio = $studio;
-        $this->insertTagParser = $insertTagParser;
-        $this->twig = $twig;
-        $this->geoLink = $geoLink;
-
-        // Adapters
-        $this->sacCabins = $this->framework->getAdapter(SacCabinsModel::class);
-        $this->stringUtil = $this->framework->getAdapter(StringUtil::class);
+    public function __construct(
+        private readonly ContaoFramework $framework,
+        private readonly Studio $studio,
+        private readonly InsertTagParser $insertTagParser,
+        private readonly Environment $twig,
+        private readonly string $geoLink,
+    ) {
+        $this->sacCabinsAdapter = $this->framework->getAdapter(SacCabinsModel::class);
+        $this->stringUtilAdapter = $this->framework->getAdapter(StringUtil::class);
     }
 
     public function __invoke(Request $request, ContentModel $model, string $section, array $classes = null, PageModel $pageModel = null): Response
     {
         // Add data to template
-        if (null === ($this->objSacCabin = $this->sacCabins->findByPk($model->sacCabin))) {
+        if (null === ($this->objSacCabin = $this->sacCabinsAdapter->findByPk($model->sacCabin))) {
             return new Response('', Response::HTTP_NO_CONTENT);
         }
 
@@ -94,7 +81,7 @@ class SacCabinsDetailController extends AbstractContentElementController
         }
 
         // ascent variants
-        $row['ascents'] = $this->stringUtil->deserialize($this->objSacCabin->ascent, true);
+        $row['ascents'] = $this->stringUtilAdapter->deserialize($this->objSacCabin->ascent, true);
 
         // coordsCH1903
         if (!empty($this->objSacCabin->coordsCH1903)) {
@@ -116,7 +103,7 @@ class SacCabinsDetailController extends AbstractContentElementController
             ->setMetadata(
                 new Metadata(
                     [
-                        Metadata::VALUE_ALT => $this->stringUtil->specialchars($this->objSacCabin->name),
+                        Metadata::VALUE_ALT => $this->stringUtilAdapter->specialchars($this->objSacCabin->name),
                     ]
                 )
             )

@@ -12,16 +12,10 @@ declare(strict_types=1);
  * @link https://github.com/markocupic/sac-cabins-bundle
  */
 
-namespace Markocupic\SacCabinsBundle\Model;
+use Markocupic\SacCabinsBundle\Model\SacCabinsModel;
 
-use Contao\Model;
+$GLOBALS['BE_MOD']['sac_be_modules']['sac_cabins_tool'] = [
+    'tables' => ['tl_sac_cabins'],
+];
 
-class SacCabinsModel extends Model
-{
-    /**
-     * Table name.
-     *
-     * @var string
-     */
-    protected static $strTable = 'tl_sac_cabins';
-}
+$GLOBALS['TL_MODELS']['tl_sac_cabins'] = SacCabinsModel::class;

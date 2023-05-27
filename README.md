@@ -5,7 +5,7 @@
 
 # SAC Cabin Bundle/SAC Hütten tool
 
-Dieses Bundle für das Contao CMS enthält die Back- und Frontend Erweiterungen, um SAC Hütten auf der Sektionswebseite zu administrieren und zu veröffentlichen.
+Dieses Bundle für das Contao CMS enthält die Back- und Frontend-Erweiterungen, um SAC Hütten auf der Sektionswebseite zu administrieren und anzuzeigen.
 
 ![Listenansicht](docs/images/cabin-list.png)
 

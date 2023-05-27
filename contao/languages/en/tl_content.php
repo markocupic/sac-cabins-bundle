@@ -12,16 +12,5 @@ declare(strict_types=1);
  * @link https://github.com/markocupic/sac-cabins-bundle
  */
 
-namespace Markocupic\SacCabinsBundle\Model;
-
-use Contao\Model;
-
-class SacCabinsModel extends Model
-{
-    /**
-     * Table name.
-     *
-     * @var string
-     */
-    protected static $strTable = 'tl_sac_cabins';
-}
+// Fields
+$GLOBALS['TL_LANG']['tl_content']['sacCabin'] = ['SAC Hütte', 'Wählen Sie eine SAC Hütte aus.'];
