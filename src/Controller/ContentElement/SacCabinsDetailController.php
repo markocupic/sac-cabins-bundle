@@ -33,7 +33,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-#[AsContentElement(SacCabinsDetailController::TYPE, category:'sac_cabins_content_elements', template:'ce_cabanne_sac_detail')]
+#[AsContentElement(SacCabinsDetailController::TYPE, category:'sac_cabins_content_elements', template:'ce_sac_cabins_detail')]
 class SacCabinsDetailController extends AbstractContentElementController
 {
     public const TYPE = 'sac_cabins_detail';
