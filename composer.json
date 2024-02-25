@@ -24,7 +24,7 @@
     },
     "require": {
         "php": "^8.1",
-        "contao/core-bundle": "^4.13 || 5.1",
+        "contao/core-bundle": "^4.13 || ^5.0",
         "markocupic/sac-event-tool-bundle": "*"
     },
     "require-dev": {
