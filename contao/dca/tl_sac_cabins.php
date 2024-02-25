@@ -13,10 +13,12 @@ declare(strict_types=1);
  */
 
 use Contao\Config;
+use Contao\DC_Table;
+use Contao\DataContainer;
 
 $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
     'config'   => [
-        'dataContainer'    => 'Table',
+        'dataContainer'    => DC_Table::class,
         'doNotCopyRecords' => true,
         'enableVersioning' => true,
         'switchToEdit'     => true,
@@ -28,7 +30,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
     ],
     'list'     => [
         'sorting'           => [
-            'mode'        => 2,
+            'mode'        => DataContainer::MODE_SORTABLE,
             'fields'      => ['name ASC'],
             'flag'        => 1,
             'panelLayout' => 'filter;sort,search,limit',
