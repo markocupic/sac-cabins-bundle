@@ -40,34 +40,15 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
             'showColumns' => true,
         ],
         'global_operations' => [
-            'all' => [
-                'href'       => 'act=select',
-                'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
-            ],
-        ],
-        'operations'        => [
-            'edit'   => [
-                'href' => 'act=edit',
-                'icon' => 'edit.gif',
-            ],
-            'copy'   => [
-                'href' => 'act=copy',
-                'icon' => 'copy.gif',
-            ],
-            'delete' => [
-                'href'       => 'act=delete',
-                'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if (!confirm(\''.($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? null).'\')) return false; Backend.getScrollOffset();"',
-            ],
-            'show'   => [
-                'href' => 'act=show',
-                'icon' => 'show.svg',
-            ],
+            'all',
         ],
     ],
     'palettes' => [
-        'default' => '{contact_legend},name,owner,canton,altitude,hutWarden,phone,email,url,bookingMethod;{capacity_legend},capacity,capacityShelterRoom;{image_legend},singleSRC;{details_legend},huettenchef,coordsCH1903,coordsWGS84,openingTime;{ascent_legend},ascent',
+        'default' => '{contact_legend},name,owner,canton,altitude,hutWarden,phone,email,url,bookingMethod;
+        {capacity_legend},capacity,capacityShelterRoom;
+        {image_legend},singleSRC;
+        {details_legend},huettenchef,coordsCH1903,coordsWGS84,openingTime;
+        {ascent_legend},ascent',
     ],
 
     'fields' => [
