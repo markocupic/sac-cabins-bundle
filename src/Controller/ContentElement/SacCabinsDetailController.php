@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -68,7 +68,7 @@ class SacCabinsDetailController extends AbstractContentElementController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    protected function getResponse(Template $template, ContentModel $model, Request $request): Response
+    protected function getResponse(Template $template, ContentModel $model, Request $request): Response|null
     {
         $row = $this->objSacCabin->row();
 
@@ -107,7 +107,6 @@ class SacCabinsDetailController extends AbstractContentElementController
                     ]
                 )
             )
-            ->setLinkHref($model->jumpTo)
             ->buildIfResourceExists()
         ;
 

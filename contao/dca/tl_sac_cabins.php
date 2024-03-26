@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -13,12 +13,10 @@ declare(strict_types=1);
  */
 
 use Contao\Config;
-use Contao\DC_Table;
-use Contao\DataContainer;
 
 $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
     'config'   => [
-        'dataContainer'    => DC_Table::class,
+        'dataContainer'    => 'Table',
         'doNotCopyRecords' => true,
         'enableVersioning' => true,
         'switchToEdit'     => true,
@@ -30,7 +28,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
     ],
     'list'     => [
         'sorting'           => [
-            'mode'        => DataContainer::MODE_SORTABLE,
+            'mode'        => 2,
             'fields'      => ['name ASC'],
             'flag'        => 1,
             'panelLayout' => 'filter;sort,search,limit',

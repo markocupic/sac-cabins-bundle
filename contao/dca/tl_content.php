@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -44,4 +44,14 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['sacCabin'] = [
     'relation'   => ['type' => 'belongsTo', 'load' => 'eager'],
     'eval'       => ['mandatory' => true, 'maxlength' => 200, 'tl_class' => 'w50 clr'],
     'sql'        => "int(10) unsigned NOT NULL default '0'",
+];
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['jumpTo'] = [
+    'exclude'    => true,
+    'search'     => true,
+    'inputType'  => 'pageTree',
+    'foreignKey' => 'tl_page.title',
+    'eval'       => ['mandatory' => true, 'fieldType' => 'radio', 'tl_class' => 'w50 wizard'],
+    'sql'        => "int(10) unsigned NOT NULL default 0",
+    'relation'   => ['type' => 'hasOne', 'load' => 'lazy'],
 ];

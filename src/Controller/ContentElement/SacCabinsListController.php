@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -38,6 +38,7 @@ class SacCabinsListController extends AbstractContentElementController
     public const TYPE = 'sac_cabins_list';
 
     private SacCabinsModel|null $objSacCabin = null;
+    private Adapter $pageAdapter;
     private Adapter $sacCabinsAdapter;
 
     public function __construct(
@@ -45,6 +46,7 @@ class SacCabinsListController extends AbstractContentElementController
         private readonly Studio $studio,
         private readonly Environment $twig,
     ) {
+        $this->pageAdapter = $this->framework->getAdapter(PageModel::class);
         $this->sacCabinsAdapter = $this->framework->getAdapter(SacCabinsModel::class);
     }
 
@@ -68,7 +70,7 @@ class SacCabinsListController extends AbstractContentElementController
         // Add data to template
         $template->cabin = $this->objSacCabin->row();
 
-        $figure = $this->studio->createFigureBuilder()
+        $figureBuilder = $this->studio->createFigureBuilder()
             ->fromUuid($model->singleSRC)
             ->setSize($model->size)
             ->setMetadata(
@@ -78,9 +80,19 @@ class SacCabinsListController extends AbstractContentElementController
                     ]
                 )
             )
-            ->setLinkHref($model->jumpTo)
-            ->buildIfResourceExists()
-            ;
+        ;
+
+        if ($model->jumpTo) {
+            /** @var PageModel|null $page */
+            $page = $this->pageAdapter->findByPk($model->jumpTo);
+
+            if (null !== $page) {
+                $figureBuilder->setLinkHref($page->getFrontendUrl());
+                $template->href = $page->getFrontendUrl();
+            }
+        }
+
+        $figure = $figureBuilder->buildIfResourceExists();
 
         if ($figure) {
             $template->figure = $this->twig->render('@ContaoCore/Image/Studio/figure.html.twig', ['figure' => $figure]);
