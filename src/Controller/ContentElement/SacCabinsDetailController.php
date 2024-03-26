@@ -107,7 +107,6 @@ class SacCabinsDetailController extends AbstractContentElementController
                     ]
                 )
             )
-            ->setLinkHref($model->jumpTo)
             ->buildIfResourceExists()
         ;
 
