@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 // Legends
 $GLOBALS['TL_LANG']['tl_sac_cabins']['contact_legend'] = 'Kontakt Einstellungen';
-$GLOBALS['TL_LANG']['tl_sac_cabins']['capacity_legend'] = 'Kapazitäten (Schlafplätze/SChutzraum)';
+$GLOBALS['TL_LANG']['tl_sac_cabins']['capacity_legend'] = 'Kapazitäten (Schlafplätze/Schutzraum)';
 $GLOBALS['TL_LANG']['tl_sac_cabins']['image_legend'] = 'Bild Einstellungen';
 $GLOBALS['TL_LANG']['tl_sac_cabins']['details_legend'] = 'Detail Einstellungen';
 $GLOBALS['TL_LANG']['tl_sac_cabins']['ascent_legend'] = 'Zustieg Einstellungen';
@@ -32,7 +32,7 @@ $GLOBALS['TL_LANG']['tl_sac_cabins']['bookingMethod'] = ['Ansprechperson für Bu
 $GLOBALS['TL_LANG']['tl_sac_cabins']['singleSRC'] = ['Bild', 'Bitte wählen Sie ein Bild aus.'];
 $GLOBALS['TL_LANG']['tl_sac_cabins']['huettenchef'] = ['Hüttenchef (Name und Adresse)', 'Bitte geben Sie Namen und Adresse des Hüttenchefs ein.'];
 $GLOBALS['TL_LANG']['tl_sac_cabins']['capacity'] = ['Schlafplätze/Kapazität', 'Bitte geben Sie die Schlafplätze-Kapazität ein.'];
-$GLOBALS['TL_LANG']['tl_sac_cabins']['capacityShelterRoom'] = ['Schutzraum/Kapazität', 'Bitte geben Sie die Kapazität des Schutraums ein.'];
+$GLOBALS['TL_LANG']['tl_sac_cabins']['capacityShelterRoom'] = ['Schutzraum/Kapazität', 'Bitte geben Sie die Kapazität des Schutzraums ein.'];
 $GLOBALS['TL_LANG']['tl_sac_cabins']['coordsCH1903'] = ['Koordinaten CH1903', 'Bitte geben Sie die Koordinaten im Format 600000/200000 ein.'];
 $GLOBALS['TL_LANG']['tl_sac_cabins']['coordsWGS84'] = ['Koordinaten WGS84', 'Bitte geben Sie die Koordinaten im Format 8.152227/46.555554 ein.'];
 $GLOBALS['TL_LANG']['tl_sac_cabins']['openingTime'] = ['Öffnungszeiten', 'Bitte geben Sie die Öffnungszeiten ein.'];
