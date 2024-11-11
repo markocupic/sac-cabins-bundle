@@ -2,9 +2,7 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-        bind:
-        #$projectDir: '%kernel.project_dir%'
-
+      
     Markocupic\SacCabinsBundle\:
         resource: ../src/
         exclude: ../src/{DependencyInjection,Model}
