@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -21,9 +21,9 @@ use Contao\CoreBundle\File\Metadata;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\Studio\Studio;
+use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\PageModel;
 use Contao\StringUtil;
-use Contao\Template;
 use Markocupic\SacCabinsBundle\Model\SacCabinsModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +35,7 @@ use Twig\Error\SyntaxError;
 #[AsContentElement(SacCabinsListController::TYPE, category:'sac_cabins_content_elements', template:'ce_sac_cabins_list')]
 class SacCabinsListController extends AbstractContentElementController
 {
-    public const TYPE = 'sac_cabins_list';
+    public const string TYPE = 'sac_cabins_list';
 
     private SacCabinsModel|null $objSacCabin = null;
     private Adapter $pageAdapter;
@@ -65,10 +65,10 @@ class SacCabinsListController extends AbstractContentElementController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    protected function getResponse(Template $template, ContentModel $model, Request $request): Response
+    protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
         // Add data to template
-        $template->cabin = $this->objSacCabin->row();
+        $template->set('cabin', $this->objSacCabin->row());
 
         $figureBuilder = $this->studio->createFigureBuilder()
             ->fromUuid($model->singleSRC)
@@ -90,14 +90,14 @@ class SacCabinsListController extends AbstractContentElementController
             if(null !== $page)
             {
                 $figureBuilder->setLinkHref($page->getFrontendUrl());
-                $template->href = $page->getFrontendUrl();
+                $template->set('href', $page->getFrontendUrl());
             }
         }
 
         $figure = $figureBuilder->buildIfResourceExists();
 
         if ($figure) {
-            $template->figure = $this->twig->render('@ContaoCore/Image/Studio/figure.html.twig', ['figure' => $figure]);
+            $template->set('figure', $this->twig->render('@ContaoCore/Image/Studio/figure.html.twig', ['figure' => $figure]));
         }
 
         return $template->getResponse();

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of SAC Cabins Bundle.
  *
- * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -22,9 +22,9 @@ use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\CoreBundle\InsertTag\InsertTagParser;
+use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\PageModel;
 use Contao\StringUtil;
-use Contao\Template;
 use Markocupic\SacCabinsBundle\Model\SacCabinsModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +36,7 @@ use Twig\Error\SyntaxError;
 #[AsContentElement(SacCabinsDetailController::TYPE, category:'sac_cabins_content_elements', template:'ce_sac_cabins_detail')]
 class SacCabinsDetailController extends AbstractContentElementController
 {
-    public const TYPE = 'sac_cabins_detail';
+    public const string TYPE = 'sac_cabins_detail';
 
     private SacCabinsModel|null $objSacCabin = null;
     private Adapter $sacCabinsAdapter;
@@ -68,7 +68,7 @@ class SacCabinsDetailController extends AbstractContentElementController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    protected function getResponse(Template $template, ContentModel $model, Request $request): Response
+    protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
         $row = $this->objSacCabin->row();
 
@@ -85,7 +85,7 @@ class SacCabinsDetailController extends AbstractContentElementController
 
         // coordsCH1903
         if (!empty($this->objSacCabin->coordsCH1903)) {
-            if (false !== strpos($this->objSacCabin->coordsCH1903, '/')) {
+            if (str_contains($this->objSacCabin->coordsCH1903, '/')) {
                 $arrCoord = explode('/', $this->objSacCabin->coordsCH1903);
 
                 if (\is_array($arrCoord) && 2 === \count($arrCoord)) {
@@ -111,11 +111,11 @@ class SacCabinsDetailController extends AbstractContentElementController
         ;
 
         if ($figure) {
-            $template->figure = $this->twig->render('@ContaoCore/Image/Studio/figure.html.twig', ['figure' => $figure]);
+            $template->set('figure', $this->twig->render('@ContaoCore/Image/Studio/figure.html.twig', ['figure' => $figure]));
         }
 
         // Add data to template
-        $template->cabin = $row;
+        $template->set('cabin',$row);
 
         return $template->getResponse();
     }
