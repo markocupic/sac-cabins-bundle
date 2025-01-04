@@ -51,7 +51,7 @@
                             {% if cabin.url|default %}
                                 <tr>
                                     <td><strong>{{ 'SAC_CAB.website'|trans({}, 'contao_default') }}:</strong></td>
-                                    <td><a href="{{ cabin.url|raw }}" target="_blank">{{ cabin.url[:26] ~ '...' }}</a></td>
+                                    <td><a href="{{ cabin.url|raw }}" target="_blank" rel="noopener">{{ cabin.url[:26] ~ '...' }}</a></td>
                                 </tr>
                             {% endif %}
 
