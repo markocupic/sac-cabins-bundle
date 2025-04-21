@@ -1,34 +1,29 @@
 {% extends '@Contao/block_searchable' %}
 
 {% block content %}
-
     <div class="card">
         <div class="p-2 d-flex align-items-center">
             <img src="bundles/markocupicsaccabins/images/logo-sac.svg" width="32" height="32" alt="Logo SAC" class="rounded-circle">
-            <p class="card-text fw-bold small ms-2">SAC Sektion Pilatus</p>
+            <p class="card-text fw-bold m-0 ms-2"><small>SAC Sektion Pilatus</small></p>
         </div>
-
         <div class="image-zoom-in">
             {% if figure|default %}
                 {{ figure|raw }}
             {% endif %}
         </div>
-
         <div class="card-body">
             {% if href|default %}
             <a href="{{ href }}" class="text-decoration-none" title="{{ 'SAC_CAB.readMore'|trans({}, 'contao_default') }}">
-            {% endif %}
+                {% endif %}
                 <h6 class="card-title mt-0">{{ cabin.name }}</h6>
             {% if href|default %}
             </a>
             {% endif %}
-
-            <p><small><strong>{{ cabin.altitude }} {{ 'SAC_CAB.metersAtSeaLevelShortcut'|trans({}, 'contao_default') }}</strong></small></p>
-            <p class="mb-0 lh-1 text-muted"><small>{{ 'SAC_CAB.sleepingPlaces'|trans({}, 'contao_default') }}: {{ cabin.capacity }}</small></p>
+            <p class="my-2"><strong>{{ cabin.altitude }} {{ 'SAC_CAB.metersAtSeaLevelShortcut'|trans({}, 'contao_default') }}</strong></p>
+            <p class="mb-0 text-muted">{{ 'SAC_CAB.sleepingPlaces'|trans({}, 'contao_default') }}: {{ cabin.capacity }}</p>
             {% if cabin.capacityShelterRoom|default %}
-                <p class="mt-0 mb-2 lh-1 text-muted"><small>{{ 'SAC_CAB.shelterRoom'|trans({}, 'contao_default') }}: {{ cabin.capacityShelterRoom }}</small></p>
+                <p class="mt-0 mb-2 text-muted">{{ 'SAC_CAB.shelterRoom'|trans({}, 'contao_default') }}: {{ cabin.capacityShelterRoom }}</p>
             {% endif %}
         </div>
     </div>
-
 {% endblock %}
