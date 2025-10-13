@@ -50,7 +50,7 @@ class SacCabinsListController extends AbstractContentElementController
         $this->sacCabinsAdapter = $this->framework->getAdapter(SacCabinsModel::class);
     }
 
-    public function __invoke(Request $request, ContentModel $model, string $section, array $classes = null, PageModel $pageModel = null): Response
+    public function __invoke(Request $request, ContentModel $model, string $section, array|null $classes = null, PageModel|null $pageModel = null): Response
     {
         // Add data to template
         if (null === ($this->objSacCabin = $this->sacCabinsAdapter->findByPk($model->sacCabin))) {
