@@ -30,9 +30,6 @@ class MarkocupicSacCabinsBundle extends Bundle
         return new MarkocupicSacCabinsExtension();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

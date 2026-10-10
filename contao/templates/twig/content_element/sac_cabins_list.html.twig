@@ -1,23 +1,24 @@
-{% extends '@Contao/block_searchable' %}
+{% extends '@Contao/content_element/_base.html.twig' %}
+{% use '@Contao/component/_figure.html.twig' %}
 
 {% block content %}
     <div class="card">
         <div class="p-2 d-flex align-items-center">
-            <img src="bundles/markocupicsaccabins/images/logo-sac.svg" width="32" height="32" alt="Logo SAC" class="rounded-circle">
+            <img src="{{ asset('images/logo-sac.svg', 'markocupic_sac_cabins') }}" width="32" height="32" alt="Logo SAC" class="rounded-circle">
             <p class="card-text fw-bold m-0 ms-2"><small>SAC Sektion Pilatus</small></p>
         </div>
         <div class="image-zoom-in">
-            {% if figure|default %}
-                {{ figure|raw }}
+            {% if figure %}
+                {{ block('figure_component') }}
             {% endif %}
         </div>
         <div class="card-body">
-            {% if href|default %}
-            <a href="{{ href }}" class="text-decoration-none" title="{{ 'SAC_CAB.readMore'|trans({}, 'contao_default') }}">
-                {% endif %}
+            {% if href %}
+                <a href="{{ href }}" class="text-decoration-none" title="{{ 'SAC_CAB.readMore'|trans({}, 'contao_default') }}">
+                    <h6 class="card-title mt-0">{{ cabin.name }}</h6>
+                </a>
+            {% else %}
                 <h6 class="card-title mt-0">{{ cabin.name }}</h6>
-            {% if href|default %}
-            </a>
             {% endif %}
             <p class="my-2"><strong>{{ cabin.altitude }} {{ 'SAC_CAB.metersAtSeaLevelShortcut'|trans({}, 'contao_default') }}</strong></p>
             <p class="mb-0 text-muted">{{ 'SAC_CAB.sleepingPlaces'|trans({}, 'contao_default') }}: {{ cabin.capacity }}</p>
