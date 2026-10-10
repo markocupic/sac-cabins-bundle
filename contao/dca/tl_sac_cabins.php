@@ -12,7 +12,6 @@ declare(strict_types=1);
  * @link https://github.com/markocupic/sac-cabins-bundle
  */
 
-use Contao\Config;
 use Contao\DC_Table;
 use Contao\DataContainer;
 
@@ -133,7 +132,7 @@ $GLOBALS['TL_DCA']['tl_sac_cabins'] = [
         'singleSRC'           => [
             'exclude'   => true,
             'inputType' => 'fileTree',
-            'eval'      => ['fieldType' => 'radio', 'filesOnly' => true, 'extensions' => Config::get('validImageTypes'), 'mandatory' => true],
+            'eval'      => ['fieldType' => 'radio', 'filesOnly' => true, 'extensions' => '%contao.image.valid_extensions%', 'mandatory' => true],
             'sql'       => 'binary(16) NULL',
         ],
         'huettenchef'         => [

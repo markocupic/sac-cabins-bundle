@@ -18,104 +18,73 @@ use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
 use Contao\CoreBundle\File\Metadata;
-use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\CoreBundle\InsertTag\InsertTagParser;
 use Contao\CoreBundle\Twig\FragmentTemplate;
-use Contao\PageModel;
 use Contao\StringUtil;
 use Markocupic\SacCabinsBundle\Model\SacCabinsModel;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 
-#[AsContentElement(SacCabinsDetailController::TYPE, category:'sac_cabins_content_elements', template:'ce_sac_cabins_detail')]
+#[AsContentElement(SacCabinsDetailController::TYPE, category: 'sac_cabins_content_elements')]
 class SacCabinsDetailController extends AbstractContentElementController
 {
-    public const string TYPE = 'sac_cabins_detail';
-
-    private SacCabinsModel|null $objSacCabin = null;
-    private Adapter $sacCabinsAdapter;
-    private Adapter $stringUtilAdapter;
+    public const TYPE = 'sac_cabins_detail';
 
     public function __construct(
         private readonly ContaoFramework $framework,
         private readonly Studio $studio,
         private readonly InsertTagParser $insertTagParser,
-        private readonly Environment $twig,
+        #[Autowire('%markocupic_sac_cabins.geo_link%')]
         private readonly string $geoLink,
     ) {
-        $this->sacCabinsAdapter = $this->framework->getAdapter(SacCabinsModel::class);
-        $this->stringUtilAdapter = $this->framework->getAdapter(StringUtil::class);
     }
 
-    public function __invoke(Request $request, ContentModel $model, string $section, array|null $classes = null, PageModel|null $pageModel = null): Response
+    protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
-        // Add data to template
-        if (null === ($this->objSacCabin = $this->sacCabinsAdapter->findByPk($model->sacCabin))) {
+        $cabin = $this->framework->getAdapter(SacCabinsModel::class)->findById((int) $model->sacCabin);
+
+        if (null === $cabin) {
             return new Response('', Response::HTTP_NO_CONTENT);
         }
 
-        return parent::__invoke($request, $model, $section, $classes);
-    }
+        $stringUtil = $this->framework->getAdapter(StringUtil::class);
 
-    /**
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
-    {
-        $row = $this->objSacCabin->row();
-
-        // geo link
+        $row = $cabin->row();
         $row['geoLink'] = $this->geoLink;
+        $row['url'] = $stringUtil->decodeEntities((string) $cabin->url);
+        $row['ascents'] = $stringUtil->deserialize($cabin->ascent, true);
+        $row['hasCoords'] = false;
 
-        // encode email
-        if ('' !== $row['email']) {
-            $row['email'] = $this->insertTagParser->replaceInline('{{email::'.$row['email'].'}}');
+        // Encode the email address
+        if ('' !== (string) $cabin->email) {
+            $row['email'] = $this->insertTagParser->replaceInline('{{email::'.$cabin->email.'}}');
         }
 
-        // ascent variants
-        $row['ascents'] = $this->stringUtilAdapter->deserialize($this->objSacCabin->ascent, true);
+        // Coordinates CH1903
+        $coords = explode('/', (string) $cabin->coordsCH1903);
 
-        // coordsCH1903
-        if (!empty($this->objSacCabin->coordsCH1903)) {
-            if (str_contains($this->objSacCabin->coordsCH1903, '/')) {
-                $arrCoord = explode('/', $this->objSacCabin->coordsCH1903);
-
-                if (\is_array($arrCoord) && 2 === \count($arrCoord)) {
-                    $row['hasCoords'] = true;
-                    $row['coordsCH1903X'] = trim($arrCoord[0]);
-                    $row['coordsCH1903Y'] = trim($arrCoord[1]);
-                }
-            }
+        if (2 === \count($coords) && '' !== trim($coords[0]) && '' !== trim($coords[1])) {
+            $row['hasCoords'] = true;
+            $row['coordsCH1903X'] = trim($coords[0]);
+            $row['coordsCH1903Y'] = trim($coords[1]);
         }
 
-        // add picture
-        $figure = $this->studio->createFigureBuilder()
-            ->fromUuid($model->singleSRC)
-            ->setSize($model->size)
-            ->setMetadata(
-                new Metadata(
-                    [
-                        Metadata::VALUE_ALT => $this->stringUtilAdapter->specialchars($this->objSacCabin->name),
-                    ]
-                )
-            )
-            ->buildIfResourceExists()
-        ;
+        $template->set('cabin', $row);
+        $template->set('figure', null);
 
-        if ($figure) {
-            $template->set('figure', $this->twig->render('@ContaoCore/Image/Studio/figure.html.twig', ['figure' => $figure]));
+        if ($model->singleSRC) {
+            $template->set('figure', $this->studio
+                ->createFigureBuilder()
+                ->fromUuid($model->singleSRC)
+                ->setSize($model->size)
+                ->setMetadata($model->overwriteMeta ? $model->getOverwriteMetadata() : new Metadata([Metadata::VALUE_ALT => (string) $cabin->name]))
+                ->enableLightbox((bool) $model->fullsize)
+                ->buildIfResourceExists(),
+            );
         }
-
-        // Add data to template
-        $template->set('cabin',$row);
 
         return $template->getResponse();
     }

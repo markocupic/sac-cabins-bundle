@@ -6,7 +6,4 @@ cd..
 cd..
 cd..
 cd..
-php vendor\bin\ecs check vendor/markocupic/sac-cabins-bundle/src --fix --config vendor/markocupic/sac-cabins-bundle/tools/ecs/config.php
-php vendor\bin\ecs check vendor/markocupic/sac-cabins-bundle/contao --fix --config vendor/markocupic/sac-cabins-bundle/tools/ecs/config.php
-php vendor\bin\ecs check vendor/markocupic/sac-cabins-bundle/config --fix --config vendor/markocupic/sac-cabins-bundle/tools/ecs/config.php
-php vendor\bin\ecs check vendor/markocupic/sac-cabins-bundle/tests --fix --config vendor/markocupic/sac-cabins-bundle/tools/ecs/config.php
+php vendor\bin\ecs check --fix --config vendor/markocupic/sac-cabins-bundle/tools/ecs/config/default.php

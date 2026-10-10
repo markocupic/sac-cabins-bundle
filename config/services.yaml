@@ -2,25 +2,11 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-      
+
     Markocupic\SacCabinsBundle\:
         resource: ../src/
-        exclude: ../src/{DependencyInjection,Model}
-
-    Markocupic\SacCabinsBundle\Controller\ContentElement\SacCabinsDetailController:
-        arguments:
-            - '@contao.framework'
-            - '@contao.image.studio'
-            - '@contao.insert_tag.parser'
-            - '@twig'
-            - '%markocupic_sac_cabins.geo_link%'
-        public: true
-
-    Markocupic\SacCabinsBundle\Controller\ContentElement\SacCabinsListController:
-        arguments:
-            - '@contao.framework'
-            - '@contao.image.studio'
-            - '@twig'
-        public: true
-
-
+        exclude:
+            - ../src/ContaoManager
+            - ../src/DependencyInjection
+            - ../src/Model
+            - ../src/MarkocupicSacCabinsBundle.php
